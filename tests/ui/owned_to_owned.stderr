@@ -1,0 +1,30 @@
+error: using `to_owned` on an already-owned type
+  --> $DIR/owned_to_owned.rs:30:20
+   |
+LL |     let _ = result.to_owned();
+   |                    ^^^^^^^^ help: replace this with: `clone`
+   |
+   = note: `-D clippy::owned-to-owned` implied by `-D warnings`
+
+error: using `to_vec` on an already-owned type
+  --> $DIR/owned_to_owned.rs:31:20
+   |
+LL |     let _ = result.to_vec();
+   |                    ^^^^^^ help: replace this with: `clone`
+
+error: using `to_owned` on an already-owned type
+  --> $DIR/owned_to_owned.rs:34:17
+   |
+LL |     let _ = str.to_owned();
+   |                 ^^^^^^^^ help: replace this with: `clone`
+
+error: using `clone` on type `Kitten` which implements the `Copy` trait
+  --> $DIR/owned_to_owned.rs:37:13
+   |
+LL |     let _ = kitten.clone();
+   |             ^^^^^^^^^^^^^^ help: try removing the `clone` call: `kitten`
+   |
+   = note: `-D clippy::clone-on-copy` implied by `-D warnings`
+
+error: aborting due to 4 previous errors
+

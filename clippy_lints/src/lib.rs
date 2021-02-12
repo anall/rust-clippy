@@ -285,6 +285,7 @@ mod open_options;
 mod option_env_unwrap;
 mod option_if_let_else;
 mod overflow_check_conditional;
+mod owned_to_owned;
 mod panic_in_result_fn;
 mod panic_unimplemented;
 mod partialeq_ne_impl;
@@ -841,6 +842,7 @@ pub fn register_plugins(store: &mut rustc_lint::LintStore, sess: &Session, conf:
         &option_env_unwrap::OPTION_ENV_UNWRAP,
         &option_if_let_else::OPTION_IF_LET_ELSE,
         &overflow_check_conditional::OVERFLOW_CHECK_CONDITIONAL,
+        &owned_to_owned::OWNED_TO_OWNED,
         &panic_in_result_fn::PANIC_IN_RESULT_FN,
         &panic_unimplemented::PANIC,
         &panic_unimplemented::TODO,
@@ -1256,6 +1258,7 @@ pub fn register_plugins(store: &mut rustc_lint::LintStore, sess: &Session, conf:
     store.register_late_pass(move || box types::PtrAsPtr::new(msrv));
     store.register_late_pass(|| box case_sensitive_file_extension_comparisons::CaseSensitiveFileExtensionComparisons);
     store.register_late_pass(|| box redundant_slicing::RedundantSlicing);
+    store.register_late_pass(|| box owned_to_owned::OwnedToOwned);
 
     store.register_group(true, "clippy::restriction", Some("clippy_restriction"), vec![
         LintId::of(&arithmetic::FLOAT_ARITHMETIC),
@@ -2021,6 +2024,7 @@ pub fn register_plugins(store: &mut rustc_lint::LintStore, sess: &Session, conf:
         LintId::of(&mutable_debug_assertion::DEBUG_ASSERT_WITH_MUT_CALL),
         LintId::of(&mutex_atomic::MUTEX_INTEGER),
         LintId::of(&needless_borrow::NEEDLESS_BORROW),
+        LintId::of(&owned_to_owned::OWNED_TO_OWNED),
         LintId::of(&path_buf_push_overwrite::PATH_BUF_PUSH_OVERWRITE),
         LintId::of(&redundant_pub_crate::REDUNDANT_PUB_CRATE),
         LintId::of(&regex::TRIVIAL_REGEX),
